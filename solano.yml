@@ -1,11 +1,38 @@
-system:
-  docker: true
+# original config
+#
+# system:
+#   docker: true
+# plan:
+#   - default
+# profiles:
+#   default:
+#     script: /usr/local/repos/host-script.sh
+#     environment:
+#       'PATH': '/solano/agent:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+#       'MYSQL_ROOT_PASSWORD': 'my-super-secret-password'
+#     timeout: 9000 # in seconds
+
+ruby_version: 'ruby-2.4.0'
+bundler_version: 1.15.4
+
 plan:
-  - default
+- first
+- second
+
 profiles:
-  default:
-    script: /usr/local/repos/host-script.sh
+  first:
     environment:
-      'PATH': '/solano/agent:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-      'MYSQL_ROOT_PASSWORD': 'my-super-secret-password'
-    timeout: 9000 # in seconds
+      MY_PROFILE: "first"
+    script: bin/test
+    test_pattern:
+      - test/*_test.rb
+    profile_config:
+      advance_on: 'always'
+  second:
+    environment:
+      MY_PROFILE: "second"
+    script: bin/test
+    test_pattern:
+      - spec/*_spec.rb
+    profile_config:
+      advance_on: 'always'
