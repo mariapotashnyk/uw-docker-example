@@ -6,11 +6,14 @@ plan:
   - default
 profiles:
   default:
-    script: host-script.sh
+    script: map_vol/hello.sh
     environment:
-      'PATH': '/solano/agent:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-      'MYSQL_ROOT_PASSWORD': 'my-super-secret-password'
-    timeout: 9000 # in seconds
+      MY_PROFILE: "first"
+    test_pattern:
+      - host-script.sh
+#       'PATH': '/solano/agent:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+#       'MYSQL_ROOT_PASSWORD': 'my-super-secret-password'
+#     timeout: 9000 # in seconds
 
 # ruby_version: 'ruby-2.4.0'
 # bundler_version: 1.15.4
